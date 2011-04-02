@@ -1,0 +1,98 @@
+NAME
+    Dancer::Plugin::Cache::CHI - Dancer plugin to cache response content
+    (and anything else)
+
+VERSION
+    version 1.0.0
+
+SYNOPSIS
+    In your configuration:
+
+        plugins:
+            'Cache::CHI':
+                driver: Memory
+                global: 1
+
+    In your application:
+
+        use Dancer ':syntax';
+        use Dancer::Plugin::Cache::CHI;
+
+        # caching pages' response
+    
+        check_page_cache;
+
+        get '/cache_me' => sub {
+            cache_page template 'foo';
+        };
+
+        # using the helper functions
+
+        get '/clear' => sub {
+            cache_clear;
+        };
+
+        put '/stash' => sub {
+            cache_set secret_stash => request->body;
+        };
+
+        get '/stash' => sub {
+            return cache_get 'secret_stash';
+        };
+
+        # using the cache directly
+
+        get '/something' => sub {
+            my $thingy = cache->compute( 'thingy', sub { compute_thingy() } );
+
+            return template 'foo' => { thingy => $thingy };
+        };
+
+DESCRIPTION
+    This plugin provides Dancer with an interface to a CHI cache. Also, it
+    includes a mechanism to easily cache the response of routes.
+
+CONFIGURATION
+    The plugin's configuration is passed directly to the CHI object's
+    constructor. For example, the configuration given in the "SYNOPSIS" will
+    create a cache object equivalent to
+
+        $cache = CHI->new( driver => 'Memory', global => 1, );
+
+KEYWORDS
+  cache
+    Returns the CHI cache object.
+
+  check_page_cache
+    If invoked, returns the cached response of a route, if available.
+
+    The "path_info" attribute of the request is used as the key for the
+    route, so the same route requested with different parameters will yield
+    the same cached content. Caveat emptor.
+
+  cache_page($content, $expiration)
+    Caches the *$content* to be served to subsequent requests. The
+    *$expiration* parameter is optional.
+
+  cache_set, cache_get, cache_clear, cache_compute
+    Shortcut to the cache's object methods.
+
+        get '/cache/:attr/:value' => sub {
+            # equivalent to cache->set( ... );
+            cache_set $params->{attr} => $params->{value};
+        };
+
+SEE ALSO
+    Dancer Web Framework - Dancer
+
+    Dancer::Plugin::Memcached - plugin that heavily inspired this one.
+
+AUTHOR
+    Yanick Champoux <yanick@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2011 by Yanick Champoux.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
