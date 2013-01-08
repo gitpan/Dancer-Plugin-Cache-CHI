@@ -10,7 +10,8 @@ my %module_build_args = (
     "Dancer::Test" => 0,
     "File::Find" => 0,
     "Module::Build" => "0.3601",
-    "Test::More" => 0
+    "Test::More" => "0.88",
+    "perl" => "v5.10.0"
   },
   "configure_requires" => {
     "Module::Build" => "0.3601"
@@ -20,7 +21,7 @@ my %module_build_args = (
     "Yanick Champoux <yanick\@cpan.org>"
   ],
   "dist_name" => "Dancer-Plugin-Cache-CHI",
-  "dist_version" => "1.3.1",
+  "dist_version" => "1.4.0",
   "license" => "perl",
   "module_name" => "Dancer::Plugin::Cache::CHI",
   "recommends" => {},
@@ -34,6 +35,7 @@ my %module_build_args = (
     "Dancer::Plugin" => 0,
     "Dancer::Response" => 0,
     "Dancer::SharedData" => 0,
+    "Moo" => 0,
     "strict" => 0,
     "warnings" => 0
   },

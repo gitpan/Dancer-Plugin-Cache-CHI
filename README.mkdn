@@ -4,7 +4,7 @@ Dancer::Plugin::Cache::CHI - Dancer plugin to cache response content (and anythi
 
 # VERSION
 
-version 1.3.1
+version 1.4.0
 
 # SYNOPSIS
 
@@ -62,12 +62,12 @@ includes a mechanism to easily cache the response of routes.
 # CONFIGURATION
 
 Unrecognized configuration elements are passed directly to the [CHI](http://search.cpan.org/perldoc?CHI) object's
-constructor. For example, the configuration given in the [SYNOPSIS](#pod_SYNOPSIS)
+constructor. For example, the configuration given in the ["SYNOPSIS"](#SYNOPSIS)
 will create a cache object equivalent to
 
     $cache = CHI->new( driver => 'Memory', global => 1, );
 
-## honor_no_cache
+## honor\_no\_cache
 
 If the parameter '`honor_no_cache`' is set to true, a request with the http
 header '`Cache-Control`' or '`Pragma`' set to '_no-cache_' will ignore any
@@ -79,10 +79,10 @@ content cached via '`cache_page`' and will have the page regenerated anew.
 
 Returns the [CHI](http://search.cpan.org/perldoc?CHI) cache object.
 
-## cache $namespace, \%args
+## cache $namespace, \\%args
 
 [CHI](http://search.cpan.org/perldoc?CHI) only allows one namespace per object. But you can create more caches by
-using _cache $namespace, \%args_. The new cache uses the arguments as defined in
+using _cache $namespace, \\%args_. The new cache uses the arguments as defined in
 the configuration, which values can be overriden by the optional arguments
 (which are only used on the first invocation of the namespace).
 
@@ -97,7 +97,7 @@ the configuration, which values can be overriden by the optional arguments
 Note that all the other keywords (`cache_page`, `cache_set`, etc) will still
 use the main cache object.
 
-## check_page_cache
+## check\_page\_cache
 
 If invoked, returns the cached response of a route, if available.
 
@@ -105,31 +105,31 @@ The `path_info` attribute of the request is used as the key for the route,
 so the same route requested with different parameters will yield the same
 cached content. Caveat emptor.
 
-## cache_page($content, $expiration)
+## cache\_page($content, $expiration)
 
 Caches the _$content_ to be served to subsequent requests.
 The headers and http status of the response are also cached.
 
 The _$expiration_ parameter is optional.
 
-## cache_page_key
+## cache\_page\_key
 
 Returns the cache key used by '`cache_page`'. Defaults to
-to the request's _path_info_, but can be modified via
-_cache_page_key_generator_.
+to the request's _path\_info_, but can be modified via
+_cache\_page\_key\_generator_.
 
-## cache_page_key_generator( \&sub )
+## cache\_page\_key\_generator( \\&sub )
 
-Sets the function that generates the cache key for _cache_page_.
+Sets the function that generates the cache key for _cache\_page_.
 
 For example, to have the key contains both information about the request's
-hostname and path_info (useful to deal with multi-machine applications):
+hostname and path\_info (useful to deal with multi-machine applications):
 
     cache_page_key_generator sub {
         return join ':', request()->host, request()->path_info;
     };
 
-## cache_set, cache_get, cache_remove, cache_clear, cache_compute
+## cache\_set, cache\_get, cache\_remove, cache\_clear, cache\_compute
 
 Shortcut to the cache's object methods.
 
@@ -142,7 +142,7 @@ See the [CHI](http://search.cpan.org/perldoc?CHI) documentation for further info
 
 # HOOKS
 
-## before_create_cache
+## before\_create\_cache
 
 Called before the creation of the cache, which is lazily done upon
 its first use.
@@ -166,7 +166,7 @@ Dancer Web Framework - [Dancer](http://search.cpan.org/perldoc?Dancer)
 
 # AUTHOR
 
-Yanick Champoux <yanick@cpan.org>
+Yanick Champoux <yanick@cpan.org> [![endorse](http://api.coderwall.com/yanick/endorsecount.png)](http://coderwall.com/yanick)
 
 # COPYRIGHT AND LICENSE
 

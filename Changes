@@ -1,5 +1,12 @@
 Revision history for Dancer::Plugin::Cache::CHI
 
+1.4.0 2013-01-07
+ [ENHANCEMENTS]
+ - Now Dancer 2 compatible.
+
+ [STATISTICS]
+ - code churn: 5 files changed, 146 insertions(+), 56 deletions(-)
+
 1.3.1 2012-09-26
  [BUG FIXES]
  - working around regression in Dancer 1.31
